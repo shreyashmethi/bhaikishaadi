@@ -1,26 +1,331 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Shaadi Tracker — Design System
+   A warm, elegant, mobile-first wedding palette.
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* --- Brand palette --------------------------------------- */
+  --green-900: #14532d;
+  --green-800: #166534;
+  --green-700: #15803d;   /* primary */
+  --green-600: #16a34a;
+  --green-500: #22c55e;
+  --green-100: #dcfce7;
+  --green-50:  #f0fdf4;
+
+  --gold-700: #a16207;
+  --gold-600: #ca8a04;    /* secondary accent */
+  --gold-500: #eab308;
+  --gold-100: #fef9c3;
+  --gold-50:  #fefce8;
+
+  --rose-700: #9f1239;
+  --rose-600: #be123c;    /* wedding accent */
+  --rose-100: #ffe4e6;
+  --rose-50:  #fff1f2;
+
+  /* --- Semantic ------------------------------------------- */
+  --primary:        var(--green-700);
+  --primary-hover:  var(--green-800);
+  --primary-soft:   var(--green-50);
+
+  --danger:        #dc2626;
+  --danger-hover:  #b91c1c;
+  --danger-soft:   #fef2f2;
+
+  --warn:        #ea580c;
+  --warn-soft:   #fff7ed;
+
+  --info:        #2563eb;
+  --info-soft:   #eff6ff;
+
+  --whatsapp: #25d366;
+
+  /* --- Neutrals (ink + surfaces) -------------------------- */
+  --ink-900: #111827;   /* headings */
+  --ink-700: #374151;   /* body */
+  --ink-500: #6b7280;   /* muted */
+  --ink-400: #9ca3af;   /* faint / placeholder */
+  --line:    #e5e7eb;   /* borders */
+  --line-strong: #d1d5db;
+
+  --bg:         #f6f7f5;  /* page */
+  --surface:    #ffffff;  /* cards */
+  --surface-2:  #fafafa;  /* subtle insets */
+
+  /* --- Radius -------------------------------------------- */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --r-pill: 999px;
+
+  /* --- Shadows (soft, layered) --------------------------- */
+  --shadow-xs: 0 1px 2px rgba(17, 24, 39, 0.04);
+  --shadow-sm: 0 1px 3px rgba(17, 24, 39, 0.06), 0 1px 2px rgba(17, 24, 39, 0.04);
+  --shadow-md: 0 4px 12px rgba(17, 24, 39, 0.08), 0 2px 4px rgba(17, 24, 39, 0.04);
+  --shadow-lg: 0 12px 32px rgba(17, 24, 39, 0.12);
+  --shadow-primary: 0 4px 14px rgba(21, 128, 61, 0.30);
+
+  /* --- Spacing scale (4pt) ------------------------------- */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
+  --s5: 20px; --s6: 24px; --s8: 32px; --s10: 40px;
+
+  /* --- Type --------------------------------------------- */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--ink-900);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  color: var(--ink-900);
+  background: var(--surface);
+}
+
+a { color: inherit; }
+
+::placeholder { color: var(--ink-400); }
+
+::selection {
+  background: var(--green-100);
+  color: var(--green-900);
+}
+
+/* ============================================================
+   Reusable component classes
+   ============================================================ */
+
+/* --- App shell ---------------------------------------- */
+.shell {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--s4) var(--s4) 96px;
+}
+
+/* --- Cards -------------------------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* --- Buttons ------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  transition: transform 0.08s ease, box-shadow 0.18s ease,
+    background 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+  user-select: none;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.55; cursor: default; transform: none; }
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: var(--shadow-primary);
+}
+.btn-primary:not(:disabled):hover { background: var(--primary-hover); }
+
+.btn-block { width: 100%; }
+.btn-lg { padding: 17px 20px; font-size: 17px; border-radius: var(--r-lg); }
+
+.btn-outline {
+  background: var(--surface);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.btn-outline:not(:disabled):hover { background: var(--primary-soft); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-500);
+  padding: 8px 12px;
+  font-size: 14px;
+  box-shadow: none;
+}
+.btn-ghost:hover { color: var(--ink-900); }
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+.btn-danger:not(:disabled):hover { background: var(--danger-hover); }
+
+.btn-whatsapp {
+  background: var(--whatsapp);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.32);
+}
+.btn-whatsapp:hover { filter: brightness(0.96); }
+
+/* --- Form fields -------------------------------------- */
+.field {
+  width: 100%;
+  padding: 13px 14px;
+  font-size: 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink-900);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  appearance: none;
+}
+.field:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--green-100);
+}
+textarea.field { resize: vertical; line-height: 1.5; }
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-700);
+  margin-bottom: 6px;
+}
+
+/* --- Chips / badges ----------------------------------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: var(--r-pill);
+  line-height: 1.4;
+}
+.chip-high   { background: var(--rose-100);  color: var(--rose-700); }
+.chip-normal { background: var(--info-soft); color: #1e40af; }
+.chip-low    { background: #f3f4f6;          color: var(--ink-500); }
+.chip-neutral{ background: #f1f3f5;          color: var(--ink-700); }
+.chip-done   { background: var(--green-100); color: var(--green-800); }
+
+/* --- Segmented filter pills --------------------------- */
+.seg {
+  padding: 9px 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--surface);
+  color: var(--ink-700);
+  transition: all 0.15s ease;
+}
+.seg-active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  box-shadow: var(--shadow-primary);
+}
+
+/* --- Progress bar ------------------------------------- */
+.track {
+  height: 10px;
+  border-radius: var(--r-pill);
+  background: #e7eae6;
+  overflow: hidden;
+}
+.track-fill {
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: linear-gradient(90deg, var(--green-600), var(--green-500));
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.track-fill.full {
+  background: linear-gradient(90deg, var(--green-800), var(--green-600));
+}
+
+/* --- Toast -------------------------------------------- */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink-900);
+  color: #fff;
+  padding: 13px 22px;
+  border-radius: var(--r-pill);
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  z-index: 999;
+  white-space: nowrap;
+  max-width: calc(100vw - 32px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: toast-in 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Skeleton loader ---------------------------------- */
+.skel {
+  background: linear-gradient(100deg, #eceeec 30%, #f5f6f4 50%, #eceeec 70%);
+  background-size: 200% 100%;
+  border-radius: var(--r-md);
+  animation: shimmer 1.3s ease-in-out infinite;
+}
+
+/* --- Animations --------------------------------------- */
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, 16px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up 0.3s ease both; }
+
+/* --- Misc helpers ------------------------------------- */
+.muted { color: var(--ink-500); }
+.faint { color: var(--ink-400); }
+.divider { height: 1px; background: var(--line); border: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
