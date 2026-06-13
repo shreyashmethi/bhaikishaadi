@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { getCurrentUserId, clearCurrentUser } from '@/lib/auth'
+import { buzz } from '@/lib/haptics'
 import TaskCard from '@/components/TaskCard'
 import ProgressBar from '@/components/ProgressBar'
 
@@ -73,6 +74,7 @@ export default function Dashboard() {
 
   async function markDone(id: string) {
     const task = tasks.find((t) => t.id === id)
+    buzz()
     setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, status: 'done' } : t)))
     await supabase.from('tasks').update({ status: 'done' }).eq('id', id)
     showToast(`✅ "${task?.title}" marked done`)

@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: 'Shaadi Tracker',
   description: 'Wedding task tracker for the family',
   manifest: '/manifest.json',
+  icons: {
+    icon: '/icon-192.png',
+    apple: '/apple-touch-icon.png',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',

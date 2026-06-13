@@ -3,6 +3,7 @@ import { useEffect, useState, use } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { getCurrentUserId } from '@/lib/auth'
+import { buzz } from '@/lib/haptics'
 
 type Task = {
   id: string
@@ -92,6 +93,7 @@ export default function TaskDetail({ params }: { params: Promise<{ id: string }>
   async function cycleStatus() {
     if (!task) return
     const next = STATUS_CYCLE[task.status]
+    if (next === 'done') buzz()
     setTask({ ...task, status: next })
     await supabase.from('tasks').update({ status: next }).eq('id', id)
     flash('Status updated ✓')
